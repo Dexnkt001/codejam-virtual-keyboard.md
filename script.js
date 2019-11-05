@@ -123,6 +123,7 @@ function capse_s() {
     }
 }
 function shift_s() {
+    console.log(shift_alt, Capslock, shift)
     let l_step = 0;
     for (line in keyboard) {
         let step = 0
@@ -130,23 +131,32 @@ function shift_s() {
             if (document.querySelectorAll('.line')[l_step] != undefined) {
                 let but = document.querySelectorAll('.line')[l_step].children[step];
                 if (but != undefined) {
-                    if (!shift_alt && !shift) {
-                        but.innerHTML = keyboard[line][key].ru[0];
-                    }
-                    else if (!shift_alt && shift) {
-                        but.innerHTML = keyboard[line][key].ru[1];
-                    }
-                    else if (shift_alt && !shift) {
+                    if (shift_alt && Capslock && shift) {
                         but.innerHTML = keyboard[line][key].en[0];
                     }
-                    else if (shift_alt && shift) {
+                    else if (shift_alt && !Capslock && shift) {
                         but.innerHTML = keyboard[line][key].en[1];
                     }
-                    else if (shift_alt && Capslock && shift) {
-                        but.innerHTML = keyboard[line][key].en[0];
+                    else if (!shift_alt && Capslock && shift) {
+                        but.innerHTML = keyboard[line][key].ru[0];
                     }
                     else if (!shift_alt && !Capslock && shift) {
+                        but.innerHTML = keyboard[line][key].ru[1];
+                    }
+                    else if (shift_alt && Capslock && !shift) {
+                        but.innerHTML = keyboard[line][key].en[1];
+                    }
+                    else if (!shift_alt && !Capslock && shift) {
+                        but.innerHTML = keyboard[line][key].ru[1];
+                    }
+                   else if (!shift_alt && !Capslock && !shift) {
                         but.innerHTML = keyboard[line][key].ru[0];
+                    }
+                    else if (!shift_alt && Capslock && !shift) {
+                        but.innerHTML = keyboard[line][key].ru[1];
+                    }
+                    else if (shift_alt && !Capslock && !shift) {
+                        but.innerHTML = keyboard[line][key].en[0];
                     }
                 }
             }
@@ -164,7 +174,13 @@ function switch_language(){
             if (document.querySelectorAll('.line')[l_step] != undefined) {
                 let but = document.querySelectorAll('.line')[l_step].children[step];
                 if (but != undefined) {
-                    if (!shift_alt && !shift) {
+                    if (shift_alt && Capslock && shift) {
+                        but.innerHTML = keyboard[line][key].en[0];
+                    }
+                    else if (!shift_alt && !Capslock && shift) {
+                        but.innerHTML = keyboard[line][key].ru[0];
+                    }
+                    else if (!shift_alt && !shift) {
                         but.innerHTML = keyboard[line][key].ru[0];
                     }
                     else if (!shift_alt && shift) {
@@ -176,48 +192,16 @@ function switch_language(){
                     else if (shift_alt && shift) {
                         but.innerHTML = keyboard[line][key].en[1];
                     }
-                    else if (shift_alt && Capslock && shift) {
-                        but.innerHTML = keyboard[line][key].en[0];
-                    }
-                    else if (!shift_alt && !Capslock && shift) {
+                    else if (!shift_alt && !Capslock) {
                         but.innerHTML = keyboard[line][key].ru[0];
                     }
-                }
-            }
-            step++;
-        }
-        l_step++;
-    }
-}
-
-function rev() {
-    console.log("Hello rev")
-    let l_step = 0;
-    for (line in keyboard) {
-        let step = 0
-        for (key in keyboard[line]) {
-            if (document.querySelectorAll('.line')[l_step] != undefined) {
-                let but = document.querySelectorAll('.line')[l_step].children[step];
-                if (but != undefined) {
-                    if (!shift_alt && !Capslock) {
-                        but.innerHTML = keyboard[line][key].ru[0];
-                    }
-                    if (!shift_alt && Capslock) {
+                    else if (!shift_alt && Capslock) {
                         but.innerHTML = keyboard[line][key].ru[1];
                     }
-                    if (!shift_alt && shift) {
-                        but.innerHTML = keyboard[line][key].ru[1];
-                    }
-                    if (!shift_alt && !shift) {
-                        but.innerHTML = keyboard[line][key].ru[0];
-                    }
-                    if (shift_alt && !Capslock) {
+                    else if (shift_alt && !Capslock) {
                         but.innerHTML = keyboard[line][key].en[0];
                     }
-                    if (shift_alt && Capslock) {
-                        but.innerHTML = keyboard[line][key].en[1];
-                    }
-                    if (shift_alt && Capslock) {
+                    else if (shift_alt && Capslock) {
                         but.innerHTML = keyboard[line][key].en[1];
                     }
                 }
@@ -237,15 +221,6 @@ function creat_board(board, keyboard) {
             let but = document.createElement('div')
             if (!shift_alt && !Capslock) {
                 but.innerHTML = keyboard[line][key].ru[0];
-            }
-            else if (!shift_alt && Capslock) {
-                but.innerHTML = keyboard[line][key].ru[1];
-            }
-            else if (shift_alt && !Capslock) {
-                but.innerHTML = keyboard[line][key].en[0];
-            }
-            else if (shift_alt && Capslock) {
-                but.innerHTML = keyboard[line][key].en[1];
             }
             if (spec_button.indexOf(key) != -1) {
                 but.className = 'spec';
@@ -269,9 +244,6 @@ function creat_board(board, keyboard) {
     }
 }
 
-
-
-
 creat_board(board, keyboard);
 
 const keyswitch = (e) => {
@@ -294,26 +266,25 @@ const keyswitch = (e) => {
         shift = true;
         shift_s()
     }
-    console.log(Capslock, shift, alt);
+    if (shift && alt) {
+        s_a_s++
+        if (s_a_s % 2 == 0) {
+        shift_alt = false;
+        switch_language();
+        }
+        else {shift_alt = true;
+            switch_language()}
+    }
 }
 
 const shiftup = (e) => {
     if (e.code == 'ShiftLeft' || e.code == 'ShiftRight') {
         shift = false;
-        rev()
     }
     else if (e.code == 'AltLeft' || e.code == 'AltRight') {
         alt = false;
-        rev()
     }
-}
-
-if (shift && alt) {
-    s_a_s++
-    if (s_a_s % 2 == 0) {
-    shift_alt = false;
-    }
-    else shift_alt = true;
+    shift_s()
 }
 
 document.addEventListener('keydown', keyswitch);
