@@ -97,7 +97,7 @@ spec_80 = ['ShiftRight', 'Enter'],
     str='';
 
     if (localStorage == undefined){
-        localStorage('shift_alt', false);
+        localStorage('shift_alt', 'false');
     } 
 
 function capse_s() {
