@@ -333,12 +333,15 @@ function addAnimationformouse(event) {
             if (step_capse % 2 == 1) {
                 Capslock = true;
             } else Capslock = false;
-            console.log('shoode be rev')
-            shift_s()
+            shift_s();
         }
         else if (target.innerHTML == 'Backspace'){
             str = str.slice(0,-1);
             res.value = str;
+        }
+        else if (target.innerHTML == 'Shift'){
+            shift = true;
+            shift_s();
         }
     }
 
@@ -348,6 +351,10 @@ function removeAnimationformouse(event) {
     let tar;
     tar = event.target;
     tar.classList.remove('animationmouse')
+    if (tar.innerHTML == 'Shift'){
+        shift = false;
+        shift_s();
+    }
 }
 
 
