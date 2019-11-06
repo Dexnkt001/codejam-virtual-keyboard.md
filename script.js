@@ -100,33 +100,6 @@ if (localStorage.shift_alt == undefined) {
     localStorage.setItem('shift_alt', 'false');
 }
 
-function capse_s() {
-    let l_step = 0;
-    for (line in keyboard) {
-        let step = 0
-        for (key in keyboard[line]) {
-            if (document.querySelectorAll('.line')[l_step] != undefined) {
-                let but = document.querySelectorAll('.line')[l_step].children[step];
-                if (but != undefined) {
-                    if (localStorage.shift_alt == 'false' && !Capslock) {
-                        but.innerHTML = keyboard[line][key].ru[0];
-                    }
-                    else if (localStorage.shift_alt == 'false' && Capslock) {
-                        but.innerHTML = keyboard[line][key].ru[1];
-                    }
-                    else if (localStorage.shift_alt == 'true' && !Capslock) {
-                        but.innerHTML = keyboard[line][key].en[0];
-                    }
-                    else if (localStorage.shift_alt == 'true' && Capslock) {
-                        but.innerHTML = keyboard[line][key].en[1];
-                    }
-                }
-            }
-            step++;
-        }
-        l_step++;
-    }
-}
 function shift_s() {
     console.log(shift_alt, Capslock, shift)
     let l_step = 0;
@@ -268,7 +241,7 @@ const keyswitch = (e) => {
             Capslock = true;
         } else Capslock = false;
         console.log('shoode be rev')
-        capse_s()
+        shift_s()
     }
     if (e.code == 'ShiftRight') {
         shift = true;
@@ -326,23 +299,6 @@ function remAnimation(e) {
                     let but = document.querySelectorAll('.line')[step_pos_l].children[step];
                     if (but != undefined) {
                         but.classList.remove('animation')
-                    }
-                }
-            } else step++;
-        }
-        step_pos_l++;
-    }
-}
-function remAnimation(e) {
-    let step_pos_l = 0
-    for (line in keyboard) {
-        let step = 0
-        for (key in keyboard[line]) {
-            if (key == e.code) {
-                if (document.querySelectorAll('.line')[step_pos_l] != undefined) {
-                    let but = document.querySelectorAll('.line')[step_pos_l].children[step];
-                    if (but != undefined) {
-                        but.classList.remove('animation')
 
                     }
                 }
@@ -365,7 +321,10 @@ function addAnimationformouse(event) {
     });
     if (bool) {
         target.classList.add('animationmouse')
-        if (target.innerHTML != 'Caps lock' && target.innerHTML != 'Enter' && target.innerHTML != 'DEL' && target.innerHTML != 'Backspace' && target.innerHTML != 'Ctrl' && target.innerHTML != 'Alt' && target.innerHTML != 'Shift' && target.innerHTML != 'TAB') {
+        if (target.innerHTML != 'Caps lock' && target.innerHTML != 'Enter' && target.innerHTML != 'DEL' && 
+        target.innerHTML != 'Backspace' && target.innerHTML != 'Ctrl' && target.innerHTML != 'Alt' && 
+        target.innerHTML != 'Shift' && target.innerHTML != 'TAB' && target.innerHTML != '◄' && 
+        target.innerHTML != '▲' && target.innerHTML != '▼' && target.innerHTML != '►' && target.innerHTML != 'Win') {
             str = str + target.innerHTML;
             res.value = str;
         }
@@ -385,21 +344,11 @@ function addAnimationformouse(event) {
 
 }
 
-
 function removeAnimationformouse(event) {
     let tar;
     tar = event.target;
     tar.classList.remove('animationmouse')
 }
-
-
-function removeAnimationformouseleave(event) {
-    let tar;
-    tar = event.target.children;
-    // tar.classList.remove('animationmouse')
-    console.log(tar)
-}
-
 
 
 document.addEventListener('keydown', keyswitch);
@@ -408,5 +357,4 @@ document.addEventListener('keydown', addAnimation);
 document.addEventListener('keyup', remAnimation);
 document.querySelector('.keyboard').addEventListener('mousedown', addAnimationformouse);
 document.querySelector('.keyboard').addEventListener('mouseup', removeAnimationformouse);
-document.querySelector('.keyboard').addEventListener('mouseenter', removeAnimationformouseleave);
 
