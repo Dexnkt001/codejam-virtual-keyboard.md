@@ -95,7 +95,9 @@ spec_80 = ['ShiftRight', 'Enter'],
     step_capse = 0,
     s_a_s = 0;  
 
-
+    if (localStorage == undefined){
+        localStorage('shift_alt', false);
+    } 
 
 function capse_s() {
     let l_step = 0;
@@ -105,16 +107,16 @@ function capse_s() {
             if (document.querySelectorAll('.line')[l_step] != undefined) {
                 let but = document.querySelectorAll('.line')[l_step].children[step];
                 if (but != undefined) {
-                    if (!shift_alt && !Capslock) {
+                    if (localStorage.shift_alt == 'false' && !Capslock) {
                         but.innerHTML = keyboard[line][key].ru[0];
                     }
-                    else if (!shift_alt && Capslock) {
+                    else if (localStorage.shift_alt == 'false' && Capslock) {
                         but.innerHTML = keyboard[line][key].ru[1];
                     }
-                    else if (shift_alt && !Capslock) {
+                    else if (localStorage.shift_alt=='true' && !Capslock) {
                         but.innerHTML = keyboard[line][key].en[0];
                     }
-                    else if (shift_alt && Capslock) {
+                    else if (localStorage.shift_alt=='true' && Capslock) {
                         but.innerHTML = keyboard[line][key].en[1];
                     }
                 }
@@ -133,31 +135,31 @@ function shift_s() {
             if (document.querySelectorAll('.line')[l_step] != undefined) {
                 let but = document.querySelectorAll('.line')[l_step].children[step];
                 if (but != undefined) {
-                    if (shift_alt && Capslock && shift) {
+                    if (localStorage.shift_alt=='true' && Capslock && shift) {
                         but.innerHTML = keyboard[line][key].en[0];
                     }
-                    else if (shift_alt && !Capslock && shift) {
+                    else if (localStorage.shift_alt=='true' && !Capslock && shift) {
                         but.innerHTML = keyboard[line][key].en[1];
                     }
-                    else if (!shift_alt && Capslock && shift) {
+                    else if (localStorage.shift_alt == 'false' && Capslock && shift) {
                         but.innerHTML = keyboard[line][key].ru[0];
                     }
-                    else if (!shift_alt && !Capslock && shift) {
+                    else if (localStorage.shift_alt == 'false' && !Capslock && shift) {
                         but.innerHTML = keyboard[line][key].ru[1];
                     }
-                    else if (shift_alt && Capslock && !shift) {
+                    else if (localStorage.shift_alt=='true' && Capslock && !shift) {
                         but.innerHTML = keyboard[line][key].en[1];
                     }
-                    else if (!shift_alt && !Capslock && shift) {
+                    else if (localStorage.shift_alt == 'false' && !Capslock && shift) {
                         but.innerHTML = keyboard[line][key].ru[1];
                     }
-                    else if (!shift_alt && !Capslock && !shift) {
+                    else if (localStorage.shift_alt == 'false' && !Capslock && !shift) {
                         but.innerHTML = keyboard[line][key].ru[0];
                     }
-                    else if (!shift_alt && Capslock && !shift) {
+                    else if (localStorage.shift_alt == 'false'&& Capslock && !shift) {
                         but.innerHTML = keyboard[line][key].ru[1];
                     }
-                    else if (shift_alt && !Capslock && !shift) {
+                    else if (localStorage.shift_alt=='true' && !Capslock && !shift) {
                         but.innerHTML = keyboard[line][key].en[0];
                     }
                 }
@@ -176,34 +178,34 @@ function switch_language() {
             if (document.querySelectorAll('.line')[l_step] != undefined) {
                 let but = document.querySelectorAll('.line')[l_step].children[step];
                 if (but != undefined) {
-                    if (shift_alt && Capslock && shift) {
+                    if (localStorage.shift_alt=='true' && Capslock && shift) {
                         but.innerHTML = keyboard[line][key].en[0];
                     }
-                    else if (!shift_alt && !Capslock && shift) {
+                    else if (localStorage.shift_alt == 'false' && !Capslock && shift) {
                         but.innerHTML = keyboard[line][key].ru[0];
                     }
-                    else if (!shift_alt && !shift) {
+                    else if (localStorage.shift_alt == 'false' && !shift) {
                         but.innerHTML = keyboard[line][key].ru[0];
                     }
-                    else if (!shift_alt && shift) {
+                    else if (localStorage.shift_alt == 'false' && shift) {
                         but.innerHTML = keyboard[line][key].ru[1];
                     }
-                    else if (shift_alt && !shift) {
+                    else if (localStorage.shift_alt=='true' && !shift) {
                         but.innerHTML = keyboard[line][key].en[0];
                     }
-                    else if (shift_alt && shift) {
+                    else if (localStorage.shift_alt=='true' && shift) {
                         but.innerHTML = keyboard[line][key].en[1];
                     }
-                    else if (!shift_alt && !Capslock) {
+                    else if (localStorage.shift_alt == 'false' && !Capslock) {
                         but.innerHTML = keyboard[line][key].ru[0];
                     }
-                    else if (!shift_alt && Capslock) {
+                    else if (localStorage.shift_alt == 'false' && Capslock) {
                         but.innerHTML = keyboard[line][key].ru[1];
                     }
-                    else if (shift_alt && !Capslock) {
+                    else if (localStorage.shift_alt=='true' && !Capslock) {
                         but.innerHTML = keyboard[line][key].en[0];
                     }
-                    else if (shift_alt && Capslock) {
+                    else if (localStorage.shift_alt=='true' && Capslock) {
                         but.innerHTML = keyboard[line][key].en[1];
                     }
                 }
@@ -221,8 +223,11 @@ function creat_board(board, keyboard) {
         board.appendChild(lines);
         for (key in keyboard[line]) {
             let but = document.createElement('div')
-            if (!shift_alt && !Capslock) {
+            if (localStorage.shift_alt == 'false' && !Capslock) {
                 but.innerHTML = keyboard[line][key].ru[0];
+            }
+            else if (localStorage.shift_alt == 'true' && !Capslock) {
+                but.innerHTML = keyboard[line][key].en[0];
             }
             if (spec_button.indexOf(key) != -1) {
                 but.className = 'spec';
@@ -271,15 +276,16 @@ const keyswitch = (e) => {
     if (shift && alt) {
         s_a_s++
         if (s_a_s % 2 == 0) {
-            shift_alt = false;
+            localStorage.shift_alt = 'false';
             switch_language();
         }
         else {
-            shift_alt = true;
+            localStorage.shift_alt = 'true';
             switch_language()
         }
     }
 }
+console.log(typeof(localStorage.shift_alt))
 
 const shiftup = (e) => {
     if (e.code == 'ShiftLeft' || e.code == 'ShiftRight') {
