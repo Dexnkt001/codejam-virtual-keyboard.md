@@ -23,7 +23,7 @@ body{
 .keyboard{
     display: block;
     background-color:rgb(148, 233, 227);
-    width:78.3%;
+    width:84.3%;
     height:72%;
     border-radius: 10px;
     /*color: rgba(255, 255, 255, 0.63); */
@@ -58,7 +58,7 @@ body{
     background-color: rgb(32, 113, 145);
     float: left;
     height: 60px;
-    margin-left: 9px;
+    margin-left: 1%;
     line-height: 60px;
     text-align: center;
     border-radius: 3px;
@@ -74,7 +74,7 @@ body{
     background-color: rgb(32, 113, 145);
     float: left;
     height: 60px;
-    margin-left: 9px;
+    margin-left: 1%;
     line-height: 60px;
     text-align: center;
     border-radius: 5px;
@@ -83,13 +83,13 @@ body{
     transition: 0.3s ease;
     }
     .keyboard .Space{
-    width: 495px;
+    width: 505px;
     font-weight: 800;
     color: white;
     background-color: rgb(32, 113, 145);
     float: left;
     height: 60px;
-    margin-left: 9px;
+    margin-left: 1%;
     line-height: 60px;
     text-align: center;
     border-radius: 5px;
@@ -104,7 +104,7 @@ body{
     background-color: rgb(32, 113, 145);
     float: left;
     height: 60px;
-    margin-left: 9px;
+    margin-left: 1%;
     line-height: 60px;
     text-align: center;
     border-radius: 5px;
@@ -118,7 +118,7 @@ body{
     float: left;
     width: 60px;
     height: 60px;
-    margin-left: 9px;
+    margin-left: 1%;
     font-weight: 700;
     line-height: 60px;
     text-align: center;
@@ -137,7 +137,7 @@ body{
     float: left;
     width: 60px;
     height: 60px;
-    margin-left: 9px;
+    margin-left: 1%;
     line-height: 60px;
     text-align: center;
     border-radius: 5px;
