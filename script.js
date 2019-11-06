@@ -308,7 +308,6 @@ function addAnimation(e) {
                     let but = document.querySelectorAll('.line')[step_pos_l].children[step];
                     if (but != undefined) {
                         but.classList.add('animation')
-                        console.log(key)
                     }
                 }
             } else step++;
@@ -327,7 +326,6 @@ function remAnimation(e) {
                     let but = document.querySelectorAll('.line')[step_pos_l].children[step];
                     if (but != undefined) {
                         but.classList.remove('animation')
-                        console.log(key)
                     }
                 }
             } else step++;
@@ -369,7 +367,6 @@ function addAnimationformouse(event) {
         target.classList.add('animationmouse')
         str = str + target.innerHTML;
         res.value= str;
-        console.log(res.innerHTML)
     }
 }
 
