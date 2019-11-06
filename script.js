@@ -30,7 +30,7 @@ var keyboard = {
         'KeyP': { ru: ['з', 'З'], en: ['p', 'P'] },
         'BracketLeft': { ru: ['х', 'Х'], en: ['[', '{'] },
         'BracketRight': { ru: ['ъ', 'Ъ'], en: [']', '}'] },
-        'Backslash': { ru: ['\ ', '|'], en: ['\ ', '|'] },
+        'Backslash': { ru: ['\\', '|'], en: ['\\', '|'] },
         'Delete': { ru: ['DEL ', 'DEL'], en: ['DEL', 'DEL'] }
     },
     line3: {
@@ -69,7 +69,7 @@ var keyboard = {
         'ControlLeft': { ru: ['Ctrl', 'Ctrl'], en: ['Ctrl', 'Ctrl'] },
         'MetaLeft': { ru: ['Win', 'Win'], en: ['Win', 'Win'] },
         'AltLeft': { ru: ['Alt', 'Alt'], en: ['Alt', 'Alt'] },
-        'Space': { ru: ['space', 'space'], en: ['space', 'space'] },
+        'Space': { ru: ['', ''], en: ['', ''] },
         'AltRight': { ru: ['Alt', 'Alt'], en: ['Alt', 'Alt'] },
         'ArrowLeft': { ru: ['◄', '◄'], en: ['◄', '◄'] },
         'ArrowDown': { ru: ['▼', '▼'], en: ['▼', '▼'] },
@@ -93,7 +93,9 @@ spec_80 = ['ShiftRight', 'Enter'],
     elements = {},
     block = [],
     step_capse = 0,
-    s_a_s = 0;
+    s_a_s = 0;  
+
+
 
 function capse_s() {
     let l_step = 0;
@@ -149,7 +151,7 @@ function shift_s() {
                     else if (!shift_alt && !Capslock && shift) {
                         but.innerHTML = keyboard[line][key].ru[1];
                     }
-                   else if (!shift_alt && !Capslock && !shift) {
+                    else if (!shift_alt && !Capslock && !shift) {
                         but.innerHTML = keyboard[line][key].ru[0];
                     }
                     else if (!shift_alt && Capslock && !shift) {
@@ -166,7 +168,7 @@ function shift_s() {
     }
 }
 
-function switch_language(){
+function switch_language() {
     let l_step = 0;
     for (line in keyboard) {
         let step = 0
@@ -269,23 +271,113 @@ const keyswitch = (e) => {
     if (shift && alt) {
         s_a_s++
         if (s_a_s % 2 == 0) {
-        shift_alt = false;
-        switch_language();
+            shift_alt = false;
+            switch_language();
         }
-        else {shift_alt = true;
-            switch_language()}
+        else {
+            shift_alt = true;
+            switch_language()
+        }
     }
 }
 
 const shiftup = (e) => {
     if (e.code == 'ShiftLeft' || e.code == 'ShiftRight') {
         shift = false;
+        shift_s()
     }
     else if (e.code == 'AltLeft' || e.code == 'AltRight') {
         alt = false;
     }
-    shift_s()
 }
+
+function addAnimation(e) {
+    let step_pos_l = 0
+    for (line in keyboard) {
+        let step = 0
+        for (key in keyboard[line]) {
+            if (key == e.code) {
+                if (document.querySelectorAll('.line')[step_pos_l] != undefined) {
+                    let but = document.querySelectorAll('.line')[step_pos_l].children[step];
+                    if (but != undefined) {
+                        but.classList.add('animation')
+                        console.log(key)
+                    }
+                }
+            } else step++;
+        }
+        step_pos_l++;
+    }
+}
+
+function remAnimation(e) {
+    let step_pos_l = 0
+    for (line in keyboard) {
+        let step = 0
+        for (key in keyboard[line]) {
+            if (key == e.code) {
+                if (document.querySelectorAll('.line')[step_pos_l] != undefined) {
+                    let but = document.querySelectorAll('.line')[step_pos_l].children[step];
+                    if (but != undefined) {
+                        but.classList.remove('animation')
+                        console.log(key)
+                    }
+                }
+            } else step++;
+        }
+        step_pos_l++;
+    }
+}
+function remAnimation(e) {
+    let step_pos_l = 0
+    for (line in keyboard) {
+        let step = 0
+        for (key in keyboard[line]) {
+            if (key == e.code) {
+                if (document.querySelectorAll('.line')[step_pos_l] != undefined) {
+                    let but = document.querySelectorAll('.line')[step_pos_l].children[step];
+                    if (but != undefined) {
+                        but.classList.remove('animation')
+                        console.log(key)
+                    }
+                }
+            } else step++;
+        }
+        step_pos_l++;
+    }
+}
+
+function addAnimationformouse(event) {
+    let target
+    target = event.target
+    let bool = true;
+    document.querySelectorAll('.line').forEach(function (element) {
+        console.log(element, target);
+        if (element == target) {
+            bool = false;
+        }
+        console.log(bool);
+        return bool;
+    });
+    if (bool) {
+        target.classList.add('animationmouse')
+    }
+}
+
+function removeAnimationformouse(event) {
+    let tar;
+    tar = event.target;
+    tar.classList.remove('animationmouse')
+    console.log(tar)
+}
+
+
 
 document.addEventListener('keydown', keyswitch);
 document.addEventListener('keyup', shiftup);
+document.addEventListener('keydown', addAnimation);
+document.addEventListener('keyup', remAnimation);
+document.querySelector('.keyboard').addEventListener('mousedown', addAnimationformouse);
+document.querySelector('.keyboard').addEventListener('mouseup', removeAnimationformouse);
+document.querySelector('.keyboard').addEventListener('mouseleave', removeAnimationformouse);
+
