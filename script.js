@@ -93,7 +93,8 @@ spec_80 = ['ShiftRight', 'Enter'],
     elements = {},
     block = [],
     step_capse = 0,
-    s_a_s = 0;  
+    s_a_s = 0,
+    str='';
 
     if (localStorage == undefined){
         localStorage('shift_alt', false);
@@ -344,7 +345,7 @@ function remAnimation(e) {
                     let but = document.querySelectorAll('.line')[step_pos_l].children[step];
                     if (but != undefined) {
                         but.classList.remove('animation')
-                        console.log(key)
+                        
                     }
                 }
             } else step++;
@@ -357,16 +358,18 @@ function addAnimationformouse(event) {
     let target
     target = event.target
     let bool = true;
+    let res = document.getElementById('text')
     document.querySelectorAll('.line').forEach(function (element) {
-        console.log(element, target);
         if (element == target) {
             bool = false;
         }
-        console.log(bool);
         return bool;
     });
     if (bool) {
         target.classList.add('animationmouse')
+        str = str + target.innerHTML;
+        res.value= str;
+        console.log(res.innerHTML)
     }
 }
 
@@ -374,7 +377,6 @@ function removeAnimationformouse(event) {
     let tar;
     tar = event.target;
     tar.classList.remove('animationmouse')
-    console.log(tar)
 }
 
 
