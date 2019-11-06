@@ -334,7 +334,7 @@ function addAnimationformouse(event) {
                 Capslock = true;
             } else Capslock = false;
             console.log('shoode be rev')
-            capse_s()
+            shift_s()
         }
         else if (target.innerHTML == 'Backspace'){
             str = str.slice(0,-1);
